@@ -1,0 +1,117 @@
+{
+  "callsign": "LaunchDelegate",
+  "classname": "LaunchDelegate",
+  "locator": "libLaunchDelegate.so",
+  "autostart": true,
+  "version": "1.0.0",
+  "friendlyname": "LaunchDelegate",
+  "shortdescription": "Application lifecycle management delegate",
+  "description": "LaunchDelegate exposes lifecycle control endpoints (launch, stop, suspend, resume, state) and emits lifecycle events (statechange, launched, stopped, suspended, resumed).",
+  "preconditions": [],
+  "controls": [],
+  "termination": [],
+  "configuration": {
+    "allowAnyApps": true,
+    "allowedApps": []
+  },
+  "notifications": [
+    {
+      "event": "statechange",
+      "description": "Emitted when an application's state changes.",
+      "params": {
+        "id": "string",
+        "state": "string",
+        "reason": "string"
+      }
+    },
+    {
+      "event": "launched",
+      "description": "Emitted after successful application launch.",
+      "params": {
+        "id": "string"
+      }
+    },
+    {
+      "event": "stopped",
+      "description": "Emitted after application stop.",
+      "params": {
+        "id": "string",
+        "reason": "string"
+      }
+    },
+    {
+      "event": "suspended",
+      "description": "Emitted after application suspend.",
+      "params": {
+        "id": "string"
+      }
+    },
+    {
+      "event": "resumed",
+      "description": "Emitted after application resume.",
+      "params": {
+        "id": "string"
+      }
+    }
+  ],
+  "methods": [
+    {
+      "method": "launch",
+      "params": {
+        "id": "string",
+        "args": "string"
+      },
+      "result": "void",
+      "description": "Launch application by id."
+    },
+    {
+      "method": "stop",
+      "params": {
+        "id": "string"
+      },
+      "result": "void",
+      "description": "Stop application by id."
+    },
+    {
+      "method": "suspend",
+      "params": {
+        "id": "string"
+      },
+      "result": "void",
+      "description": "Suspend application by id."
+    },
+    {
+      "method": "resume",
+      "params": {
+        "id": "string"
+      },
+      "result": "void",
+      "description": "Resume application by id."
+    },
+    {
+      "method": "state",
+      "params": {
+        "id": "string"
+      },
+      "result": {
+        "state": "string"
+      },
+      "description": "Get application state by id."
+    },
+    {
+      "method": "getconfig",
+      "params": {},
+      "result": {
+        "allowAnyApps": "boolean",
+        "allowedApps": ["string"]
+      },
+      "description": "Return active configuration including allowAnyApps and allowedApps."
+    },
+    {
+      "method": "listapps",
+      "params": {},
+      "result": ["string"],
+      "description": "Return list of allowed apps (or tracked apps if allowAnyApps=true)."
+    }
+  ]
+}
