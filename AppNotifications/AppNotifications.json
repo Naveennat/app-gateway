@@ -1,0 +1,73 @@
+{
+  "callsign": "AppNotifications",
+  "classname": "AppNotifications",
+  "locator": "libAppNotifications.so",
+  "autostart": true,
+  "version": "1.0.0",
+  "friendlyname": "AppNotifications",
+  "shortdescription": "Topic-based application notifications provider",
+  "description": "AppNotifications exposes a topic-based broadcast notification primitive. Clients broadcast via broadcast() and receive notifications by subscribing to the 'notification' event.",
+  "preconditions": [],
+  "controls": [],
+  "termination": [],
+  "configuration": {
+    "allowAnyTopics": true,
+    "maxPayloadBytes": 262144,
+    "allowedTopics": []
+  },
+  "notifications": [
+    {
+      "event": "notification",
+      "description": "Emitted when a broadcast notification is sent via provider.",
+      "params": {
+        "topic": "string",
+        "payload": "string",
+        "type": "string"
+      }
+    }
+  ],
+  "methods": [
+    {
+      "method": "broadcast",
+      "description": "Broadcast a notification on a topic via the provider.",
+      "params": {
+        "topic": "string",
+        "payload": "string",
+        "type": "string"
+      },
+      "result": "void"
+    },
+    {
+      "method": "allowtopic",
+      "description": "Allow a topic at runtime for broadcasting (allowlist add).",
+      "params": {
+        "topic": "string"
+      },
+      "result": "void"
+    },
+    {
+      "method": "disallowtopic",
+      "description": "Disallow a topic at runtime for broadcasting (allowlist remove).",
+      "params": {
+        "topic": "string"
+      },
+      "result": "void"
+    },
+    {
+      "method": "listtopics",
+      "description": "List currently allowed topics.",
+      "params": {},
+      "result": ["string"]
+    },
+    {
+      "method": "getconfig",
+      "description": "Return active configuration including allowAnyTopics, maxPayloadBytes and allowed topics.",
+      "params": {},
+      "result": {
+        "allowAnyTopics": "boolean",
+        "maxPayloadBytes": "number",
+        "allowedTopics": ["string"]
+      }
+    }
+  ]
+}
