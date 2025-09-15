@@ -1,0 +1,150 @@
+{
+  "callsign": "AppGateway",
+  "classname": "AppGateway",
+  "locator": "libAppGateway.so",
+  "autostart": true,
+  "version": "1.0.0",
+  "friendlyname": "Application Gateway",
+  "shortdescription": "Unified application gateway bridging LaunchDelegate, App2AppProvider and AppNotifications",
+  "description": "AppGateway unifies application lifecycle operations, inter-app messaging, and application notifications into a single JSON-RPC API. It routes commands to configured downstream plugins and forwards their events with normalized names.",
+  "preconditions": [],
+  "controls": [],
+  "termination": [],
+  "configuration": {
+    "launchDelegateCallsign": "",
+    "app2appProviderCallsign": "",
+    "appNotificationsCallsign": "",
+    "subscribeAppEvents": true,
+
+    "startMethod": "launch",
+    "stopMethod": "stop",
+    "suspendMethod": "suspend",
+    "resumeMethod": "resume",
+    "stateMethod": "state",
+
+    "sendMessageMethod": "sendmessage",
+    "broadcastMethod": "broadcast",
+
+    "allowedApps": []
+  },
+  "notifications": [
+    {
+      "event": "appstatechanged",
+      "description": "Emitted when an application's state changes.",
+      "params": {
+        "id": "string",
+        "state": "string",
+        "reason": "string"
+      }
+    },
+    {
+      "event": "appmessage",
+      "description": "Emitted when an app-2-app message is received via App2AppProvider.",
+      "params": {
+        "originId": "string",
+        "targetId": "string",
+        "payload": "string",
+        "type": "string"
+      }
+    },
+    {
+      "event": "appstarted",
+      "description": "Emitted after successful application launch.",
+      "params": {
+        "id": "string"
+      }
+    },
+    {
+      "event": "appstopped",
+      "description": "Emitted after application stop.",
+      "params": {
+        "id": "string",
+        "reason": "string"
+      }
+    }
+  ],
+  "methods": [
+    {
+      "method": "launch",
+      "params": {
+        "id": "string",
+        "args": "string"
+      },
+      "result": "void",
+      "description": "Launch application by id using LaunchDelegate."
+    },
+    {
+      "method": "stop",
+      "params": {
+        "id": "string"
+      },
+      "result": "void",
+      "description": "Stop application by id using LaunchDelegate."
+    },
+    {
+      "method": "suspend",
+      "params": {
+        "id": "string"
+      },
+      "result": "void",
+      "description": "Suspend application by id using LaunchDelegate."
+    },
+    {
+      "method": "resume",
+      "params": {
+        "id": "string"
+      },
+      "result": "void",
+      "description": "Resume application by id using LaunchDelegate."
+    },
+    {
+      "method": "state",
+      "params": {
+        "id": "string"
+      },
+      "result": {
+        "state": "string"
+      },
+      "description": "Get application state by id using LaunchDelegate."
+    },
+    {
+      "method": "sendmessage",
+      "params": {
+        "originId": "string",
+        "targetId": "string",
+        "payload": "string",
+        "type": "string"
+      },
+      "result": "void",
+      "description": "Send inter-app message via App2AppProvider."
+    },
+    {
+      "method": "broadcast",
+      "params": {
+        "topic": "string",
+        "payload": "string",
+        "type": "string"
+      },
+      "result": "void",
+      "description": "Broadcast a notification via AppNotifications provider."
+    },
+    {
+      "method": "getconfig",
+      "params": {},
+      "result": {
+        "launchDelegateCallsign": "string",
+        "app2appProviderCallsign": "string",
+        "appNotificationsCallsign": "string",
+        "subscribeAppEvents": "boolean",
+        "allowedApps": ["string"]
+      },
+      "description": "Return current AppGateway configuration subset."
+    },
+    {
+      "method": "listapps",
+      "params": {},
+      "result": ["string"],
+      "description": "Return the list of allowed application identifiers."
+    }
+  ]
+}
