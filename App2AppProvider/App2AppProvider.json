@@ -1,0 +1,78 @@
+{
+  "callsign": "App2AppProvider",
+  "classname": "App2AppProvider",
+  "locator": "libApp2AppProvider.so",
+  "autostart": true,
+  "version": "1.0.0",
+  "friendlyname": "App2AppProvider",
+  "shortdescription": "Inter-application messaging provider",
+  "description": "App2AppProvider exposes a simple inter-application messaging primitive. Clients send messages via sendmessage() and receive them by subscribing to the 'message' event.",
+  "preconditions": [],
+  "controls": [],
+  "termination": [],
+  "configuration": {
+    "allowAny": true,
+    "requireRegister": false,
+    "maxPayloadBytes": 262144,
+    "allowedApps": []
+  },
+  "notifications": [
+    {
+      "event": "message",
+      "description": "Emitted when an inter-app message is delivered via provider.",
+      "params": {
+        "originId": "string",
+        "targetId": "string",
+        "payload": "string",
+        "type": "string"
+      }
+    }
+    // Future event types may be added as needed by design docs
+  ],
+  "methods": [
+    {
+      "method": "sendmessage",
+      "description": "Send an inter-application message via the provider.",
+      "params": {
+        "originId": "string",
+        "targetId": "string",
+        "payload": "string",
+        "type": "string"
+      },
+      "result": "void"
+    },
+    {
+      "method": "registerapp",
+      "description": "Register an application identifier for messaging (required if requireRegister=true).",
+      "params": {
+        "id": "string"
+      },
+      "result": "void"
+    },
+    {
+      "method": "unregisterapp",
+      "description": "Unregister a previously registered application identifier.",
+      "params": {
+        "id": "string"
+      },
+      "result": "void"
+    },
+    {
+      "method": "listregistered",
+      "description": "List registered application identifiers.",
+      "params": {},
+      "result": ["string"]
+    },
+    {
+      "method": "getconfig",
+      "description": "Return active configuration including allowlist and runtime policy.",
+      "params": {},
+      "result": {
+        "allowAny": "boolean",
+        "requireRegister": "boolean",
+        "maxPayloadBytes": "number",
+        "allowedApps": ["string"]
+      }
+    }
+  ]
+}
