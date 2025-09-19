@@ -20,6 +20,8 @@ target_include_directories(appgateway_tests PRIVATE
     ${CMAKE_CURRENT_LIST_DIR}/../LaunchDelegate
     ${CMAKE_CURRENT_LIST_DIR}/../App2AppProvider
     ${CMAKE_CURRENT_LIST_DIR}/../AppNotifications
+    ${CMAKE_CURRENT_LIST_DIR}/../../Thunder/Source/core
+    ${CMAKE_CURRENT_LIST_DIR}/../../Thunder/Source/plugins
 )
 
 # No external Thunder libraries are linked; we use header-only and stub interfaces.
