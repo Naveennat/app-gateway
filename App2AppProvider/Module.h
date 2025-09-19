@@ -25,10 +25,30 @@
 
 // Core Thunder/WPEFramework plugin and interfaces
 #include <plugins/plugins.h>
+
+#if defined(__has_include)
+#if __has_include(<interfaces/definitions.h>)
 #include <interfaces/definitions.h>
+#endif
+#endif
 
 #include <core/core.h>
+
+#if defined(__has_include)
+#if __has_include(<tracing/tracing.h>)
 #include <tracing/tracing.h>
+#else
+// Fallback for test builds without Thunder tracing headers
+#ifndef SYSLOG
+#define SYSLOG(...) do { } while (0)
+#endif
+#endif
+#else
+// If __has_include is not available, provide a safe SYSLOG no-op
+#ifndef SYSLOG
+#define SYSLOG(...) do { } while (0)
+#endif
+#endif
 
 #undef EXTERNAL
 #define EXTERNAL
